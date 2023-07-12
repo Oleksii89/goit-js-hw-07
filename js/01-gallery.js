@@ -17,6 +17,31 @@ const markup = galleryItems
 </li>`;
   })
   .join("");
+
 galleryItemsRef.insertAdjacentHTML("beforeend", markup);
 
-console.log(galleryItems);
+galleryItemsRef.addEventListener("click", openOriginalImage);
+
+function openOriginalImage(evt) {
+  evt.preventDefault();
+  if (evt.target.nodeName !== "IMG") {
+    return;
+  }
+  const selectedImage = evt.target.dataset.source;
+  // console.log(evt.target.dataset.source);
+  const instance = basicLightbox.create(`
+    <img src="${selectedImage}" width="800" height="600">
+    
+`);
+  instance.show();
+  const visilbe = instance.visible();
+
+  document.addEventListener("keydown", closeModalWindowByEscape);
+  function closeModalWindowByEscape(evt) {
+    if (visilbe && evt.code === "Escape") {
+      instance.close();
+    }
+  }
+}
+
+// console.log(galleryItems);

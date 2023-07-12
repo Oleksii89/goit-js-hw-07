@@ -28,7 +28,6 @@ function openOriginalImage(evt) {
     return;
   }
   const selectedImage = evt.target.dataset.source;
-  // console.log(evt.target.dataset.source);
   const instance = basicLightbox.create(`
     <img src="${selectedImage}" width="800" height="600">
     
@@ -44,4 +43,3 @@ function openOriginalImage(evt) {
   }
 }
 
-// console.log(galleryItems);

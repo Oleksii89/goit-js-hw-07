@@ -28,18 +28,37 @@ function openOriginalImage(evt) {
     return;
   }
   const selectedImage = evt.target.dataset.source;
-  const instance = basicLightbox.create(`
+  //   const instance = basicLightbox.create(`
+  //     <img src="${selectedImage}" width="800" height="600">
+
+  // `);
+  //   instance.show();
+
+  // const visilbe = instance.visible();
+
+  // document.addEventListener("keydown", closeModalWindowByEscape);
+  // function closeModalWindowByEscape(evt) {
+  //   if (visilbe && evt.code === "Escape") {
+  //     instance.close();
+  //   }
+  // }
+  const instance = basicLightbox.create(
+    `
     <img src="${selectedImage}" width="800" height="600">
     
-`);
-  instance.show();
-  const visilbe = instance.visible();
+`,
+    {
+      onShow: (instance) =>
+        window.addEventListener("keydown", closeModalWindowByEscape),
 
-  document.addEventListener("keydown", closeModalWindowByEscape);
+      onClose: (instance) =>
+        window.removeEventListener("keydown", closeModalWindowByEscape),
+    }
+  );
+  instance.show();
   function closeModalWindowByEscape(evt) {
-    if (visilbe && evt.code === "Escape") {
+    if (evt.code === "Escape") {
       instance.close();
     }
   }
 }
-
